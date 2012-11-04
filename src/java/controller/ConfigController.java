@@ -91,6 +91,8 @@ public class ConfigController  extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
   
         Config config = new Config();  
+        
+        request.setAttribute("strLink","config"); 
   
         config.setConfigParamName(request.getParameter("paramName"));  
   

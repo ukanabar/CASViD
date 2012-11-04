@@ -91,6 +91,8 @@ public class ApplicationController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
   
         Application application = new Application();  
+        
+        request.setAttribute("strLink","app");
   
         application.setApplicatioName(request.getParameter("appName"));  
   

@@ -92,6 +92,8 @@ public class CustomerController  extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
   
         Customer customer = new Customer();  
+        
+        request.setAttribute("strLink","customer"); 
   
         customer.setFirstName(request.getParameter("firstName"));  
   
@@ -99,10 +101,6 @@ public class CustomerController  extends HttpServlet {
         
         customer.setEmail(request.getParameter("email")); 
         
-        customer.setIp(request.getParameter("ip")); 
-        
-        customer.setHost(request.getParameter("hostname"));
-  
         String customerId = request.getParameter("customerId");  
   
         if(customerId == null || customerId.isEmpty())  

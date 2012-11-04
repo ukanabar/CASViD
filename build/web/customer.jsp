@@ -56,22 +56,6 @@
                 value="<c:out value="${customer.email}" />" /> </td>
   </tr>
   <tr>
-    <td class="spec">Ip : </th>
-    <td><input  
-      
-                type="text" name="ip"  id="ip"
-      
-                value="<c:out value="${customer.ip}" />" /> </td>
-  </tr>
-  <tr>
-    <td class="spec">Host Name:</th>
-    <td><input  
-      
-                type="text" name="hostname"  id="hostname"
-      
-                value="<c:out value="${customer.host}" />" /></td>
-  </tr>
-  <tr>
     <td colspan="2" class="style1">  <input  
       
                 type="submit" <c:choose>

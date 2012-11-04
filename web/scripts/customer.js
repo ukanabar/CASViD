@@ -11,16 +11,14 @@ $().ready(function() {
 			email: {
 				required: true,
 				email: true
-			},
-			ip: "required",
-			hostname: "required"
+			}
+			
 		},
 		messages: {
 			firstName: "Please enter your firstname",
 			lastName: "Please enter your lastname",			
-			email: "Please enter a valid email address",
-			ip: "Please enter ip address",
-			hostname:"Please enter hostname"
+			email: "Please enter a valid email address"
+			
 		}
 	});
 

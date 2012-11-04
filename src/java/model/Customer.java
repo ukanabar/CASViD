@@ -19,10 +19,6 @@ public class Customer {
     
     private String email;
     
-    private String ip;
-    
-    private String host;
-    
     private Date createdDate;
   
       
@@ -62,14 +58,7 @@ public class Customer {
         this.lastName = lastName;  
   
     }
-    
-    public void setHost(String host){
-        this.host = host;
-    }
-    
-    public String getHost(){
-        return host;
-    }
+       
   
     public String getEmail() {  
   
@@ -81,19 +70,7 @@ public class Customer {
   
         this.email = email;  
   
-    }  
-  
-    public String getIp() {  
-  
-        return ip; 
-  
-    }  
-  
-    public void setIp(String ip) {  
-  
-        this.ip = ip;  
-  
-    }   
+    }     
    
     public Date getCreatedDate() {  
   
@@ -115,7 +92,7 @@ public class Customer {
   
         return "Customer [customerId=" + customerId + ", firstName=" + firstName  
   
-                + ", lastName=" + lastName + ", email=" + email+ ", ip=" + ip + ", createdDate=" + createdDate + "]";  
+                + ", lastName=" + lastName + ", email=" + email+ ", createdDate=" + createdDate + "]";  
   
     }     
     

@@ -90,6 +90,8 @@ public class SlaParamController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
   
         SlaParam slaParam = new SlaParam();  
+        
+        request.setAttribute("strLink","slaparam");
   
         slaParam.setSlaParamName(request.getParameter("slaParamName"));  
   

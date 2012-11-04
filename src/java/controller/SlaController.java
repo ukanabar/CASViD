@@ -116,6 +116,8 @@ public class SlaController extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
   
         Sla sla = new Sla();  
+        
+        request.setAttribute("strLink","sla"); 
   
         sla.setApplicationId(Integer.parseInt(request.getParameter("appId")));  
         

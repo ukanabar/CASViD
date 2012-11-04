@@ -20,7 +20,6 @@
                 <li><a href="UserController?action=listuser" <c:if test="${strLink=='user'}">class="active"</c:if>>Users</a></li>
                 <li><a href="ConfigController?action=listconfig" <c:if test="${strLink=='config'}">class="active"</c:if>>Configurations</a></li>
                 <li><a href="ApplicationController?action=listapplication" <c:if test="${strLink=='app'}">class="active"</c:if>>Applications</a></li>
-                <li><a href="SlaController?action=listsla" <c:if test="${strLink=='sla'}">class="active"</c:if>>SLAs</a></li>
                 <li><a href="SlaParamController?action=listslaparam" <c:if test="${strLink=='slaparam'}">class="active"</c:if>>SLA Parameters</a></li>               
             </ul>
         </div>

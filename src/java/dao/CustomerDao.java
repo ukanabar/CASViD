@@ -38,7 +38,7 @@ public class CustomerDao {
   
             PreparedStatement preparedStatement = connection  
   
-                    .prepareStatement("insert into casvid_customers (cust_firstname,cust_lastname,cust_email,cust_ip,cust_host,cust_createddate,cust_modifieddate) values (?, ?, ?, ?,now(),now())");  
+                    .prepareStatement("insert into casvid_customers (cust_firstname,cust_lastname,cust_email,cust_createddate,cust_modifieddate) values (?, ?, ?,now(),now())");  
   
             preparedStatement.setString(1, customer.getFirstName());  
   
@@ -46,10 +46,6 @@ public class CustomerDao {
             
             preparedStatement.setString(3, customer.getEmail());
             
-            preparedStatement.setString(4, customer.getIp());
-            
-            preparedStatement.setString(5, customer.getHost());
-  
             preparedStatement.executeUpdate();  
   
   
@@ -96,7 +92,7 @@ public class CustomerDao {
   
             PreparedStatement preparedStatement = connection  
   
-                    .prepareStatement("update casvid_customers set cust_firstname=?,cust_lastname=?,cust_email=?,cust_ip=?,cust_host=?,cust_modifieddate=now()" +  
+                    .prepareStatement("update casvid_customers set cust_firstname=?,cust_lastname=?,cust_email=?,cust_modifieddate=now()" +  
   
                             "where cust_id=?");  
   
@@ -106,13 +102,9 @@ public class CustomerDao {
   
             preparedStatement.setString(2, customer.getLastName());
       
-            preparedStatement.setString(3,customer.getEmail());  
-            
-            preparedStatement.setString(4, customer.getIp());
-            
-            preparedStatement.setString(5,customer.getHost());
-      
-            preparedStatement.setInt(6, customer.getCustomerId());  
+            preparedStatement.setString(3,customer.getEmail());             
+           
+            preparedStatement.setInt(4, customer.getCustomerId());  
   
             preparedStatement.executeUpdate();  
   
@@ -150,11 +142,7 @@ public class CustomerDao {
                 
                 customer.setLastName(rs.getString("cust_lastname"));
                 
-                customer.setEmail(rs.getString("cust_email"));
-                
-                customer.setIp(rs.getString("cust_ip"));
-                
-                customer.setHost(rs.getString("cust_host"));
+                customer.setEmail(rs.getString("cust_email"));                
                 
                 customer.setCreatedDate(rs.getDate("cust_createddate"));
                 
@@ -201,10 +189,6 @@ public class CustomerDao {
                 customer.setLastName(rs.getString("cust_lastname"));
                 
                 customer.setEmail(rs.getString("cust_email"));
-                
-                customer.setIp(rs.getString("cust_ip"));
-                
-                customer.setHost(rs.getString("cust_host"));
                 
                 customer.setCreatedDate(rs.getDate("cust_createddate")); 
   

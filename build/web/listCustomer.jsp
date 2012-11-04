@@ -31,13 +31,9 @@
                     
                     <th>Email</th>  
       
-                    <th>IP</th>
-                    
-                    <th>Host</th>
-                    
                     <th>Created Date</th>                    
       
-                    <th colspan=2>Action</th>  
+                    <th colspan="3">Action</th>  
       
                 </tr>  
       
@@ -53,15 +49,15 @@
                         
                         <td class="style1"><c:out value="${customer.email}" /></td>  
       
-                        <td class="style1"><c:out value="${customer.ip}" /></td> 
-                        
-                        <td class="style1"><c:out value="${customer.host}" /></td> 
-                        
                         <td class="style1"><c:out value="${customer.createdDate}" /></td>                          
       
-                        <td class="style1"><a href="CustomerController?action=edit&customerId=<c:out value="${customer.customerId}"/>"><img src="./images/edit-icon.gif" width="16" height="16" alt="" />Update</a></td>  
+                        <td class="style1"><a href="CustomerController?action=edit&customerId=<c:out value="${customer.customerId}"/>"><img src="./images/edit-icon.gif" width="16" height="16" alt="Update" />Update</a></td>  
       
-                        <td class="style1"><a href="CustomerController?action=delete&customerId=<c:out value="${customer.customerId}"/>"><img src="./images/hr.gif" width="16" height="16" alt="" />Delete</a></td>  
+                        <td class="style1"><a href="CustomerController?action=delete&customerId=<c:out value="${customer.customerId}"/>"><img src="./images/hr.gif" width="16" height="16" alt="Delete" />Delete</a></td>  
+                        
+                        <td class="style1"><a href="VmController?action=listvm&customerId=<c:out value="${customer.customerId}"/>"><img src="./images/vm.png" width="16" height="16" alt="VMs" />VMs</a></td>  
+      
+                          
       
                     </tr>  
       
