@@ -141,15 +141,19 @@ public class SlaDao {
   
   
   
-    public List<Sla> getAllSlas() {  
+    public List<Sla> getAllSlas(int intCustId) {  
   
         List<Sla> slas = new ArrayList<Sla>();  
   
         try {  
   
-            Statement statement = connection.createStatement();  
+            PreparedStatement statement = connection  
   
-            ResultSet rs = statement.executeQuery("select cs.sla_id,cs.app_id,cs.slaparam_id,cs.cust_id,cs.sla_type,cs.sla_threatvalue,cs.sla_violationvalue,cs.sla_createddate,cs.sla_expirydate,ca.app_name,cc.cust_firstname,cc.cust_lastname,csp.slaparam_name,csp.slaparam_unit from casvid_slas cs,casvid_applications ca,casvid_customers cc,casvid_slaparameters csp where cs.cust_id=cc.cust_id and cs.app_id=ca.app_id and cs.slaparam_id=csp.slaparam_id");  
+                    .prepareStatement("select cs.sla_id,cs.app_id,cs.slaparam_id,cs.cust_id,cs.sla_type,cs.sla_threatvalue,cs.sla_violationvalue,cs.sla_createddate,cs.sla_expirydate,ca.app_name,cc.cust_firstname,cc.cust_lastname,csp.slaparam_name,csp.slaparam_unit from casvid_slas cs,casvid_applications ca,casvid_customers cc,casvid_slaparameters csp where cs.cust_id=cc.cust_id and cs.app_id=ca.app_id and cs.slaparam_id=csp.slaparam_id and cs.cust_id=?");  
+  
+            statement.setInt(1,intCustId);  
+            
+            ResultSet rs = statement.executeQuery();  
   
             while (rs.next()) {  
   

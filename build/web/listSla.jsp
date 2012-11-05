@@ -1,7 +1,7 @@
 <%@include file="header.jsp" %>   
       
       <div class="top-bar">
-                    <a href="SlaController?action=insert" class="button">ADD NEW SLA</a>
+                    <a href="SlaController?action=insert&customerId=<c:out value="${intCustId}"/>" class="button">ADD NEW SLA</a>
                     <h1>Service Level Agreements</h1>
                     
 </div>
@@ -64,9 +64,9 @@
                         
                         <td class="style1"><c:out value="${sla.expiryDate}" /></td>  
                         
-                        <td class="style1"><a href="SlaController?action=edit&slaId=<c:out value="${sla.slaId}"/>"><img src="./images/edit-icon.gif" width="16" height="16" alt="" /><br />Update</a></td>  
+                        <td class="style1"><a href="SlaController?action=edit&customerId=<c:out value="${intCustId}"/>&slaId=<c:out value="${sla.slaId}"/>"><img src="./images/edit-icon.gif" width="16" height="16" alt="" /><br />Update</a></td>  
       
-                        <td class="style1"><a href="SlaController?action=delete&slaId=<c:out value="${sla.slaId}"/>"><img src="./images/hr.gif" width="16" height="16" alt="" /><br />Delete</a></td>  
+                        <td class="style1"><a href="SlaController?action=delete&customerId=<c:out value="${intCustId}"/>&slaId=<c:out value="${sla.slaId}"/>"><img src="./images/hr.gif" width="16" height="16" alt="" /><br />Delete</a></td>  
       
                     </tr>  
       

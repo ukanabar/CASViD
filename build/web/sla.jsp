@@ -33,7 +33,7 @@
            
             <input type="hidden" name="slaType"  
       
-                value="pro" /> <select name="appId"><option value="select">select</option><c:forEach items="${Application}" var="app"><option value="<c:out value="${app.applicationId}" />"  <c:if test="${app.applicationId==sla.applicationId}">selected="selected"</c:if>><c:out value="${app.applicationName}" /></option></c:forEach></select></td>
+                value="pro" /><input name="customerId" type="hidden" value="<c:out value="${intCustId}" />"/> <select name="appId"><option value="select">select</option><c:forEach items="${Application}" var="app"><option value="<c:out value="${app.applicationId}" />"  <c:if test="${app.applicationId==sla.applicationId}">selected="selected"</c:if>><c:out value="${app.applicationName}" /></option></c:forEach></select></td>
   </tr>
   <tr>
     <td class="spec">SLA Parameter :</th>
@@ -55,10 +55,7 @@
       
                 value="<c:out value="${sla.violationValue}" />" /> </td>
   </tr>
-  <tr>
-    <td class="spec"> Customer :</th>
-    <td><select name="custId"><option value="select">select</option><c:forEach items="${Customer}" var="cust"><option value="<c:out value="${cust.customerId}" />" <c:if test="${cust.customerId==sla.customerId}">selected="selected"</c:if>><c:out value="${cust.customerId}" />:<c:out value="${cust.firstName}" />  <c:out value="${cust.lastName}" /></option></c:forEach></select>  </td>
-  </tr>
+    
   <tr>
     <td class="spec"> SLA Expiry Date:</th>
     <td> <input  

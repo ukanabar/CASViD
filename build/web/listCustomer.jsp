@@ -33,7 +33,7 @@
       
                     <th>Created Date</th>                    
       
-                    <th colspan="3">Action</th>  
+                    <th colspan="4">Action</th>  
       
                 </tr>  
       
@@ -56,6 +56,8 @@
                         <td class="style1"><a href="CustomerController?action=delete&customerId=<c:out value="${customer.customerId}"/>"><img src="./images/hr.gif" width="16" height="16" alt="Delete" />Delete</a></td>  
                         
                         <td class="style1"><a href="VmController?action=listvm&customerId=<c:out value="${customer.customerId}"/>"><img src="./images/vm.png" width="16" height="16" alt="VMs" />VMs</a></td>  
+                        
+                        <td class="style1"><a href="SlaController?action=listsla&customerId=<c:out value="${customer.customerId}"/>"><img src="./images/sla.jpg" width="16" height="16" alt="Slas" />Sla</a></td>  
       
                           
       

@@ -15,7 +15,7 @@ public class test {
     public static void main(String[] args){
       
         SlaDao sdo = new SlaDao();
-        List<Sla> allSlas = sdo.getAllSlas();
-        System.out.print(allSlas);
+        //List<Sla> allSlas = sdo.getAllSlas();
+        //System.out.print(allSlas);
     }
 }

@@ -60,10 +60,11 @@ public class SlaController extends HttpServlet{
   
         String action = request.getParameter("action"); 
         
-        request.setAttribute("strLink","sla"); 
-        request.setAttribute("action",action);
+        int intCustId = Integer.parseInt(request.getParameter("customerId"));
+        request.setAttribute("intCustId",intCustId);
+        request.setAttribute("strLink","customer");  
         
-        request.setAttribute("Customer", daoCustomer.getAllCustomers());
+        request.setAttribute("action",action);
         request.setAttribute("Application", daoApplication.getAllApplications());
         request.setAttribute("Slaparam", daoSlaParam.getAllSlaParams());
         
@@ -75,7 +76,7 @@ public class SlaController extends HttpServlet{
   
             forward = LIST_SLA;  
   
-            request.setAttribute("slas", dao.getAllSlas());     
+            request.setAttribute("slas", dao.getAllSlas(intCustId));     
   
         } else if (action.equalsIgnoreCase("edit")){  
   
@@ -91,10 +92,10 @@ public class SlaController extends HttpServlet{
   
             forward = LIST_SLA;  
             
-            PrintWriter out = response.getWriter();
             
             
-            request.setAttribute("slas",dao.getAllSlas()); 
+            
+            request.setAttribute("slas",dao.getAllSlas(intCustId)); 
             
   
         } else {  
@@ -116,14 +117,16 @@ public class SlaController extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
   
         Sla sla = new Sla();  
-        
-        request.setAttribute("strLink","sla"); 
-  
+        Date expDate = null;
+                
+        int intCustId = Integer.parseInt(request.getParameter("customerId"));
+        request.setAttribute("intCustId",intCustId);
+         
         sla.setApplicationId(Integer.parseInt(request.getParameter("appId")));  
         
         sla.setSlaParamId(Integer.parseInt(request.getParameter("slaParamId")));       
         
-        sla.setCustomerId(Integer.parseInt(request.getParameter("custId")));
+        sla.setCustomerId(intCustId);
         
         sla.setThreatValue(request.getParameter("threatValue"));        
         
@@ -131,9 +134,13 @@ public class SlaController extends HttpServlet{
         
         sla.setSlaType(request.getParameter("slaType")); 
         
+        PrintWriter out = response.getWriter();
+        
+        
+        
         try {  
   
-            Date expDate = new SimpleDateFormat("MM/dd/yyyy").parse(request.getParameter("expDate"));  
+            expDate = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("expDate"));  
   
             sla.setExpiryDate(expDate);  
   
@@ -142,7 +149,7 @@ public class SlaController extends HttpServlet{
             e.printStackTrace();  
   
         }  
-  
+               
         String slaId = request.getParameter("slaId");  
   
         if(slaId == null || slaId.isEmpty())  
@@ -165,9 +172,9 @@ public class SlaController extends HttpServlet{
   
         RequestDispatcher view = request.getRequestDispatcher(LIST_SLA);  
   
-        request.setAttribute("slas", dao.getAllSlas());  
+        request.setAttribute("slas", dao.getAllSlas(intCustId));  
   
-        view.forward(request, response);  
+        view.forward(request, response); 
   
     }  
     
