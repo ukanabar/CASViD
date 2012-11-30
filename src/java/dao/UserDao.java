@@ -127,15 +127,23 @@ public class UserDao {
   
   
   
-    public List<User> getAllUsers() {  
+    public List<User> getAllUsers(String search) {  
   
         List<User> users = new ArrayList<User>();  
   
         try {  
   
-            Statement statement = connection.createStatement();  
+            Statement statement = connection.createStatement();
+            
+            String strSql = "select * from casvid_users";
+            
+            if(!search.isEmpty()){
+                strSql = strSql + " where user_name like'%" +search+"%' or user_email like'%"+search+"%'";
+            }
+            
+            ResultSet rs = statement.executeQuery(strSql);
   
-            ResultSet rs = statement.executeQuery("select * from casvid_users");  
+            
   
             while (rs.next()) {  
   

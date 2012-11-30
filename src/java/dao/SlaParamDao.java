@@ -126,15 +126,21 @@ public class SlaParamDao {
   
   
   
-    public List<SlaParam> getAllSlaParams() {  
+    public List<SlaParam> getAllSlaParams(String search) {  
   
         List<SlaParam> slaParams = new ArrayList<SlaParam>();  
   
         try {  
   
-            Statement statement = connection.createStatement();  
+            Statement statement = connection.createStatement(); 
+            
+            String strSql = "select * from casvid_slaparameters";
+            
+            if(!search.isEmpty()){
+                strSql = strSql + " where slaparam_name like'%" +search+"%'";
+            }
   
-            ResultSet rs = statement.executeQuery("select * from casvid_slaparameters");  
+            ResultSet rs = statement.executeQuery(strSql);  
   
             while (rs.next()) {  
   

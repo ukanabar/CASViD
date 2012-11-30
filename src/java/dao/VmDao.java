@@ -138,15 +138,21 @@ public class VmDao {
   
   
   
-    public List<Vm> getAllVms(int intCustId) {  
+    public List<Vm> getAllVms(int intCustId,String search) {  
   
         List<Vm> vms = new ArrayList<Vm>();  
   
         try {  
-  
+            
+            String strSql = "select cv.*,cc.cust_firstname,cc.cust_lastname from casvid_vms cv,casvid_customers cc where cv.cust_id=cc.cust_id and cv.cust_id=?";
+            
+            if(!search.isEmpty()){
+                strSql = strSql + " where vm_name like'%" +search+"%'";
+            }
+            
             PreparedStatement preparedStatement = connection  
   
-                    .prepareStatement("select cv.*,cc.cust_firstname,cc.cust_lastname from casvid_vms cv,casvid_customers cc where cv.cust_id=cc.cust_id and cv.cust_id=?");  
+                    .prepareStatement(strSql);  
             preparedStatement.setInt(1,intCustId);  
             ResultSet rs = preparedStatement.executeQuery();  
   

@@ -5,14 +5,17 @@
                     <h1>Users</h1>
                     
 </div>
+<form action="UserController" method="post">
 <div class="select-bar">
                     <label>
-                        <input type="text" name="textfield" />
+                        <input type="text" name="search" /><input type="hidden" name="action" value="search" />
                     </label>
                     <label>
                         <input type="submit" name="Submit" value="Search" class="button"/>
                     </label>
 </div>
+    
+</form>
 
 
    
@@ -38,7 +41,11 @@
                 </tr>  
       
            
-       
+               <c:choose>
+               <c:when test="${error!='sucess'}">
+                   <tr><td colspan="6" align="right" >${error}</td></tr>
+               </c:when>
+               <c:otherwise>  
       
                 <c:forEach items="${users}" var="user">  
       
@@ -59,13 +66,14 @@
                     </tr>  
       
                 </c:forEach>  
-      
-      <tr><td colspan="6" align="right"><div class="select">
+               </c:otherwise>
+               </c:choose>
+      <!--<tr><td colspan="6" align="right"><div class="select">
                         <strong>Other Pages: </strong>
                         <select>
                             <option>1</option>
                         </select>
-                    </div></td></tr>      
+                    </div></td></tr>-->    
       
         </table>  
       

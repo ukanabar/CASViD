@@ -44,7 +44,7 @@
   </tr>
   <tr>
     <td class="spec">Vm Desc:</th>
-    <td><textarea name="vmDesc"><c:out value="${vm.vmDesc}" /></textarea><input type="hidden" name="customerId" value="${intCustId}" /></td>
+    <td><textarea name="vmDesc" id="vmDesc"><c:out value="${vm.vmDesc}" /></textarea><input type="hidden" name="customerId" value="${intCustId}" /></td>
   </tr>
   <tr>
     <td class="spec">IP:</th>

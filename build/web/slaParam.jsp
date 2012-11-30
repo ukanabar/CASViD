@@ -33,7 +33,7 @@
       
                 type="text" name="slaParamName"  id="slaParamName"
       
-                value="<c:out value="${slaParam.slaParamName}" />" /></td>
+                value="<c:out value="${slaParam.slaParamName}" />" /> <input type="hidden" name="action" value="add/edit" ></td>
   </tr>
   <tr>
     <td class="spec">SLA Parameter Unit :</th>

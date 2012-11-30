@@ -21,9 +21,9 @@ public class Sla {
     
     private String slaParamName;  
     
-    private int customerId;
+    private int vmId;
     
-    private String customerName;
+    private String vmName;
   
     private String threatValue;  
   
@@ -97,27 +97,27 @@ public class Sla {
   
     } 
     
-    public int getCustomerId() {  
+    public int getVmId() {  
   
-        return customerId;  
+        return vmId;  
   
     }  
   
-    public void setCustomerId(int customerId) {  
+    public void setVmId(int vmId) {  
   
-        this.customerId = customerId;  
+        this.vmId = vmId;  
   
     } 
     
-    public String getCustomerName() {  
+    public String getVmName() {  
   
-        return customerName;  
+        return vmName;  
   
     }  
   
-    public void setCustomerName(String customerName) {  
+    public void setVmName(String vmName) {  
   
-        this.customerName = customerName;  
+        this.vmName = vmName;  
   
     } 
     
@@ -191,9 +191,9 @@ public class Sla {
   
         return "Sla [slaId=" + slaId + ", applicationId=" + applicationId  + ", applicationName=" + applicationName 
   
-                + ", slaParamId=" + slaParamId  + ", slaParamName=" + slaParamName + ", customerId=" + customerId 
+                + ", slaParamId=" + slaParamId  + ", slaParamName=" + slaParamName + ", vmId=" + vmId 
                 
-                + ", customerName=" + customerName + ", threatValue=" + threatValue + ", violationValue=" + violationValue 
+                + ", vmName=" + vmName + ", threatValue=" + threatValue + ", violationValue=" + violationValue 
                 
                 + ", slaType=" + slaType + ", expiryDate=" + expiryDate + ", createdDate=" + createdDate + "]";  
   

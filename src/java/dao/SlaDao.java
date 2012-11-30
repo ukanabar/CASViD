@@ -39,7 +39,7 @@ public class SlaDao {
   
             PreparedStatement preparedStatement = connection  
   
-                    .prepareStatement("insert into casvid_slas (app_id,slaparam_id,sla_threatvalue,sla_violationvalue,cust_id,sla_type,sla_createddate,sla_modifieddate,sla_expirydate) values (?, ?, ?, ?, ?, ?,now(),now(), ?)");  
+                    .prepareStatement("insert into casvid_slas (app_id,slaparam_id,sla_threatvalue,sla_violationvalue,vm_id,sla_type,sla_createddate,sla_modifieddate,sla_expirydate) values (?, ?, ?, ?, ?, ?,now(),now(), ?)");  
   
             preparedStatement.setInt(1, sla.getApplicationId());  
   
@@ -49,7 +49,7 @@ public class SlaDao {
             
             preparedStatement.setString(4, sla.getViolationValue());
             
-            preparedStatement.setInt(5, sla.getCustomerId());
+            preparedStatement.setInt(5, sla.getVmId());
             
             preparedStatement.setString(6, sla.getSlaType());
             
@@ -103,7 +103,7 @@ public class SlaDao {
   
             PreparedStatement preparedStatement = connection  
   
-                    .prepareStatement("update casvid_slas set app_id=?,slaparam_id=?,sla_threatvalue=?,sla_violationvalue=?,cust_id=?,sla_type=?,sla_modifieddate=now(),sla_expirydate=?" +  
+                    .prepareStatement("update casvid_slas set app_id=?,slaparam_id=?,sla_threatvalue=?,sla_violationvalue=?,vm_id=?,sla_type=?,sla_modifieddate=now(),sla_expirydate=?" +  
   
                             "where sla_id=?");  
   
@@ -117,7 +117,7 @@ public class SlaDao {
             
             preparedStatement.setString(4, sla.getViolationValue());
             
-            preparedStatement.setInt(5, sla.getCustomerId());
+            preparedStatement.setInt(5, sla.getVmId());
             
             preparedStatement.setString(6, sla.getSlaType());
             
@@ -141,7 +141,7 @@ public class SlaDao {
   
   
   
-    public List<Sla> getAllSlas(int intCustId) {  
+    public List<Sla> getAllSlas(int intVmId) {  
   
         List<Sla> slas = new ArrayList<Sla>();  
   
@@ -149,9 +149,9 @@ public class SlaDao {
   
             PreparedStatement statement = connection  
   
-                    .prepareStatement("select cs.sla_id,cs.app_id,cs.slaparam_id,cs.cust_id,cs.sla_type,cs.sla_threatvalue,cs.sla_violationvalue,cs.sla_createddate,cs.sla_expirydate,ca.app_name,cc.cust_firstname,cc.cust_lastname,csp.slaparam_name,csp.slaparam_unit from casvid_slas cs,casvid_applications ca,casvid_customers cc,casvid_slaparameters csp where cs.cust_id=cc.cust_id and cs.app_id=ca.app_id and cs.slaparam_id=csp.slaparam_id and cs.cust_id=?");  
+                    .prepareStatement("select cs.sla_id,cs.app_id,cs.slaparam_id,cs.vm_id,cs.sla_type,cs.sla_threatvalue,cs.sla_violationvalue,cs.sla_createddate,cs.sla_expirydate,ca.app_name,cv.vm_name,csp.slaparam_name,csp.slaparam_unit from casvid_slas cs,casvid_applications ca,casvid_vms cv,casvid_slaparameters csp where cs.vm_id=cv.vm_id and cs.app_id=ca.app_id and cs.slaparam_id=csp.slaparam_id and cs.vm_id=?");  
   
-            statement.setInt(1,intCustId);  
+            statement.setInt(1,intVmId);  
             
             ResultSet rs = statement.executeQuery();  
   
@@ -169,9 +169,9 @@ public class SlaDao {
                 
                 sla.setSlaParamName(rs.getString("slaparam_name"));
                 
-                sla.setCustomerId(rs.getInt("cust_id")); 
+                sla.setVmId(rs.getInt("vm_id")); 
                 
-                sla.setCustomerName(rs.getString("cust_firstname")+" "+rs.getString("cust_lastname"));
+                sla.setVmName(rs.getString("vm_name"));
   
                 sla.setThreatValue(rs.getString("sla_threatvalue"));                 
                 
@@ -209,7 +209,7 @@ public class SlaDao {
   
             PreparedStatement preparedStatement = connection.  
   
-                    prepareStatement("select cs.sla_id,cs.app_id,cs.slaparam_id,cs.cust_id,cs.sla_type,cs.sla_threatvalue,cs.sla_violationvalue,cs.sla_createddate,cs.sla_expirydate,ca.app_name,cc.cust_firstname,cc.cust_lastname,csp.slaparam_name,csp.slaparam_unit from casvid_slas cs,casvid_applications ca,casvid_customers cc,casvid_slaparameters csp where cs.cust_id=cc.cust_id and cs.app_id=ca.app_id and cs.slaparam_id=csp.slaparam_id and cs.sla_id =?");  
+                    prepareStatement("select cs.sla_id,cs.app_id,cs.slaparam_id,cs.vm_id,cs.sla_type,cs.sla_threatvalue,cs.sla_violationvalue,cs.sla_createddate,cs.sla_expirydate,ca.app_name,cv.vm_name,csp.slaparam_name,csp.slaparam_unit from casvid_slas cs,casvid_applications ca,casvid_vms cv,casvid_slaparameters csp where cs.vm_id=cv.vm_id and cs.app_id=ca.app_id and cs.slaparam_id=csp.slaparam_id and cs.sla_id =?");  
   
             preparedStatement.setInt(1, slaId);  
   
@@ -229,9 +229,9 @@ public class SlaDao {
                 
                 sla.setSlaParamName("slaparam_name");
                 
-                sla.setCustomerId(rs.getInt("cust_id")); 
+                sla.setVmId(rs.getInt("vm_id")); 
                 
-                sla.setCustomerName(rs.getString("cust_firstname")+" "+rs.getString("cust_lastname"));
+                sla.setVmName(rs.getString("vm_name"));
   
                 sla.setThreatValue(rs.getString("sla_threatvalue"));                 
                 

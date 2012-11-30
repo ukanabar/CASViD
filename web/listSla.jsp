@@ -1,17 +1,18 @@
 <%@include file="header.jsp" %>   
       
       <div class="top-bar">
-                    <a href="SlaController?action=insert&customerId=<c:out value="${intCustId}"/>" class="button">ADD NEW SLA</a>
+                    <a href="SlaController?action=insert&vmId=<c:out value="${intVmId}"/>" class="button">ADD NEW SLA</a>
                     <h1>Service Level Agreements</h1>
                     
 </div>
+
 <div class="select-bar">
-                    <label>
+                   <!-- <label>
                         <input type="text" name="textfield" />
                     </label>
                     <label>
                         <input type="submit" name="Submit" value="Search" class="button"/>
-                    </label>
+                    </label>-->
 </div>
 
 
@@ -34,7 +35,7 @@
       
                     <th>Threshold Limit</th> 
                     
-                    <th>Customer</th>  
+                    <th>Virtual Machine</th>  
                     
                     <th>Created Date</th>  
                     
@@ -58,26 +59,26 @@
       
                         <td class="style1"><c:out value="${sla.violationValue}" /></td>                    
                         
-                        <td class="style1"><c:out value="${sla.customerName}" /></td>  
+                        <td class="style1"><c:out value="${sla.vmName}" /></td>  
                         
                          <td class="style1"><c:out value="${sla.createdDate}" /></td>
                         
                         <td class="style1"><c:out value="${sla.expiryDate}" /></td>  
                         
-                        <td class="style1"><a href="SlaController?action=edit&customerId=<c:out value="${intCustId}"/>&slaId=<c:out value="${sla.slaId}"/>"><img src="./images/edit-icon.gif" width="16" height="16" alt="" /><br />Update</a></td>  
+                        <td class="style1"><a href="SlaController?action=edit&vmId=<c:out value="${intVmId}"/>&slaId=<c:out value="${sla.slaId}"/>"><img src="./images/edit-icon.gif" width="16" height="16" alt="" /><br />Update</a></td>  
       
-                        <td class="style1"><a href="SlaController?action=delete&customerId=<c:out value="${intCustId}"/>&slaId=<c:out value="${sla.slaId}"/>"><img src="./images/hr.gif" width="16" height="16" alt="" /><br />Delete</a></td>  
+                        <td class="style1"><a href="SlaController?action=delete&vmId=<c:out value="${intVmId}"/>&slaId=<c:out value="${sla.slaId}"/>"><img src="./images/hr.gif" width="16" height="16" alt="" /><br />Delete</a></td>  
       
                     </tr>  
       
                 </c:forEach>  
       
-            <tr><td colspan="9" align="right"><div class="select">
+            <!--<tr><td colspan="9" align="right"><div class="select">
                         <strong>Other Pages: </strong>
                         <select>
                             <option>1</option>
                         </select>
-                    </div></td></tr>
+                    </div></td></tr>-->
       
         </table>  
       

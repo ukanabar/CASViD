@@ -6,12 +6,15 @@ package controller;
 
 import dao.ConfigDao;
 import java.io.*;  
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Config;
+
 
 /**
  *
@@ -45,6 +48,8 @@ public class ConfigController  extends HttpServlet {
         
         request.setAttribute("strLink","config"); 
         
+        String error = "sucess";
+        
         request.setAttribute("action",action);
         if (action.equalsIgnoreCase("delete")){  
   
@@ -54,7 +59,7 @@ public class ConfigController  extends HttpServlet {
   
             forward = LIST_CONFIG;  
   
-            request.setAttribute("configs", dao.getAllConfigs());     
+            request.setAttribute("configs", dao.getAllConfigs(""));     
   
         } else if (action.equalsIgnoreCase("edit")){  
   
@@ -70,7 +75,7 @@ public class ConfigController  extends HttpServlet {
   
             forward = LIST_CONFIG;  
   
-            request.setAttribute("configs", dao.getAllConfigs());  
+            request.setAttribute("configs", dao.getAllConfigs(""));  
   
         } else {  
   
@@ -79,7 +84,8 @@ public class ConfigController  extends HttpServlet {
         }  
   
   
-  
+        request.setAttribute("error",error);
+        
         RequestDispatcher view = request.getRequestDispatcher(forward);  
   
         view.forward(request, response);  
@@ -93,39 +99,66 @@ public class ConfigController  extends HttpServlet {
         Config config = new Config();  
         
         request.setAttribute("strLink","config"); 
-  
-        config.setConfigParamName(request.getParameter("paramName"));  
-  
-        config.setConfigParamValue(request.getParameter("paramValue"));        
+        
+        String error = "sucess";
+        
+        String search = request.getParameter("search");
+        
+        String action = request.getParameter("action");
+        
+            if(action.equalsIgnoreCase("search")){
+                
+                List<Config> configs = new ArrayList<Config>();  
+                configs = dao.getAllConfigs(search);
+
+
+                if(!configs.isEmpty()){
+                    request.setAttribute("configs",configs);
+                }else {
+                    error = "No Configs found!";
+                }
+
+
+            } else {
+
+                config.setConfigParamName(request.getParameter("paramName"));  
+
+                config.setConfigParamValue(request.getParameter("paramValue"));        
+
+
+                String configId = request.getParameter("configId");  
+
+                if(configId == null || configId.isEmpty())  
+
+                {  
+
+                    dao.addConfig(config);  
+
+                }  
+
+                else  
+
+                {  
+
+                    config.setConfigId(Integer.parseInt(configId));  
+
+                    dao.updateConfig(config);  
+
+                }
+                
+                request.setAttribute("configs", dao.getAllConfigs(""));
+
+            }
+            
+            request.setAttribute("error",error);
+
+            RequestDispatcher view = request.getRequestDispatcher(LIST_CONFIG);               
+
+            view.forward(request, response);  
+
           
-  
-        String configId = request.getParameter("configId");  
-  
-        if(configId == null || configId.isEmpty())  
-  
-        {  
-  
-            dao.addConfig(config);  
-  
-        }  
-  
-        else  
-  
-        {  
-  
-            config.setConfigId(Integer.parseInt(configId));  
-  
-            dao.updateConfig(config);  
-  
-        }  
-  
-        RequestDispatcher view = request.getRequestDispatcher(LIST_CONFIG);  
-  
-        request.setAttribute("configs", dao.getAllConfigs());  
-  
-        view.forward(request, response);  
-  
-    }  
+        
+    }
     
     
 }

@@ -45,7 +45,7 @@
                     
                     <th>Vm Mac Address</th>             
                     
-                    <th colspan="2" scope="col">Action</th>  
+                    <th colspan="3" scope="col">Action</th>  
       
                 </tr>  
        
@@ -73,17 +73,18 @@
                         <td class="style1"><a href="VmController?action=edit&customerId=<c:out value="${intCustId}"/>&vmId=<c:out value="${vm.vmId}"/>"><img src="./images/edit-icon.gif" width="16" height="16" alt="" /><br />Update</a></td>  
       
                         <td class="style1"><a href="VmController?action=delete&customerId=<c:out value="${intCustId}"/>&vmId=<c:out value="${vm.vmId}"/>"><img src="./images/hr.gif" width="16" height="16" alt="" /><br />Delete</a></td>  
-      
+                        
+                        <td class="style1"><a href="SlaController?action=listsla&vmId=<c:out value="${vm.vmId}"/>"/><img src="./images/sla.jpg" width="16" height="16" alt="Slas" />Sla</a></td>
                     </tr>  
       
                 </c:forEach>  
       
-            <tr><td colspan="9" align="right"><div class="select">
+            <!--<tr><td colspan="9" align="right"><div class="select">
                         <strong>Other Pages: </strong>
                         <select>
                             <option>1</option>
                         </select>
-                    </div></td></tr>
+                    </div></td></tr>-->
       
         </table> 
         

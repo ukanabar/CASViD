@@ -122,15 +122,21 @@ public class ApplicationDao {
   
   
   
-    public List<Application> getAllApplications() {  
+    public List<Application> getAllApplications(String search) {  
   
         List<Application> applications = new ArrayList<Application>();  
   
         try {  
   
-            Statement statement = connection.createStatement();  
+            Statement statement = connection.createStatement();
+            
+            String strSql = "select * from casvid_applications";
+            
+            if(!search.isEmpty()){
+                strSql = strSql + " where app_name like'%"+search+"%'";
+            }
   
-            ResultSet rs = statement.executeQuery("select * from casvid_applications");  
+            ResultSet rs = statement.executeQuery(strSql);  
   
             while (rs.next()) {  
   

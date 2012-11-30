@@ -5,6 +5,8 @@
 package controller;
 import dao.UserDao;
 import java.io.*;  
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -48,6 +50,8 @@ public class UserController extends HttpServlet{
   
         String action = request.getParameter("action");  
         
+        String error = "sucess";
+        
         request.setAttribute("strLink","user");
         
         request.setAttribute("action",action);
@@ -62,7 +66,7 @@ public class UserController extends HttpServlet{
   
             forward = LIST_USER;  
   
-            request.setAttribute("users", dao.getAllUsers());     
+            request.setAttribute("users", dao.getAllUsers(""));     
   
         } else if (action.equalsIgnoreCase("edit")){  
   
@@ -78,7 +82,7 @@ public class UserController extends HttpServlet{
   
             forward = LIST_USER;  
   
-            request.setAttribute("users", dao.getAllUsers());  
+            request.setAttribute("users", dao.getAllUsers(""));  
   
         } else if (action.equalsIgnoreCase("logout")){          
             
@@ -92,7 +96,7 @@ public class UserController extends HttpServlet{
         }  
   
   
-  
+        request.setAttribute("error",error);
         RequestDispatcher view = request.getRequestDispatcher(forward);  
   
         view.forward(request, response);  
@@ -104,12 +108,33 @@ public class UserController extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
   
                
+        String error = "sucess";
+        
         request.setAttribute("strLink","user");
         
-        String action = request.getParameter("action");
+        String action = request.getParameter("action");       
         
+        RequestDispatcher view = null;
         
         User user = new User();
+        
+        if(action.equalsIgnoreCase("search")){
+            String search = request.getParameter("search");
+            List<User> users = new ArrayList<User>();  
+            users = dao.getAllUsers(search);
+            
+            
+            if(!users.isEmpty()){
+                request.setAttribute("users",users);
+            }else {
+                error = "No User found!";
+            }
+          view = request.getRequestDispatcher(LIST_USER);  
+            
+        } else if(action.equalsIgnoreCase("login")){
+        
+        
+        
         
         String userName = request.getParameter("userName");
         
@@ -117,18 +142,18 @@ public class UserController extends HttpServlet{
           
         
   
-        if(action.equalsIgnoreCase("login")){
+        
             
             user = dao.validateUser(userName,password);     
             
             
             if(!user.isActive()){
                 
-                RequestDispatcher view = request.getRequestDispatcher(INDEX);  
+                view = request.getRequestDispatcher(INDEX);  
   
                 request.setAttribute("error","Invalid UserName or Password");  
   
-                view.forward(request, response);
+                
                 
             } else {
                 
@@ -137,22 +162,22 @@ public class UserController extends HttpServlet{
                 
                 session.setAttribute("userData",user);
                 
-                RequestDispatcher view = request.getRequestDispatcher(LIST_CUSTOMER);  
+                view = request.getRequestDispatcher(LIST_CUSTOMER);  
   
                 request.setAttribute("userData",user);
                 
                 request.setAttribute("strLink","customer");
   
-                view.forward(request, response);
+                
                 
                 
             }
             
         } else { 
              
-            user.setUserName(userName);
+            user.setUserName(request.getParameter("userName"));
 
-            user.setUserPassword(password);
+            user.setUserPassword(request.getParameter("password"));
 
             user.setEmail(request.getParameter("email")); 
 
@@ -178,13 +203,16 @@ public class UserController extends HttpServlet{
 
             }  
 
-            RequestDispatcher view = request.getRequestDispatcher(LIST_USER);  
+              
+            view = request.getRequestDispatcher(LIST_USER);
+            request.setAttribute("users", dao.getAllUsers(""));  
 
-            request.setAttribute("users", dao.getAllUsers());  
-
-            view.forward(request, response);  
+             
         
         }
-  
+        
+        request.setAttribute("error",error);
+        
+        view.forward(request, response); 
     }  
 }

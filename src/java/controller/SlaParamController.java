@@ -5,11 +5,14 @@
 package controller;
 import dao.SlaParamDao;
 import java.io.*;  
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Customer;
 import model.SlaParam;
 
 /**
@@ -40,7 +43,9 @@ public class SlaParamController extends HttpServlet {
   
         String forward="";  
   
-        String action = request.getParameter("action");  
+        String action = request.getParameter("action");
+        
+        String error = "sucess";
         
         request.setAttribute("strLink","slaparam");
         
@@ -53,7 +58,7 @@ public class SlaParamController extends HttpServlet {
   
             forward = LIST_SLAPARAM;  
   
-            request.setAttribute("slaParams", dao.getAllSlaParams());     
+            request.setAttribute("slaParams", dao.getAllSlaParams(""));     
   
         } else if (action.equalsIgnoreCase("edit")){  
   
@@ -69,7 +74,7 @@ public class SlaParamController extends HttpServlet {
   
             forward = LIST_SLAPARAM;  
   
-            request.setAttribute("slaParams", dao.getAllSlaParams());  
+            request.setAttribute("slaParams", dao.getAllSlaParams(""));  
   
         } else {  
   
@@ -78,7 +83,8 @@ public class SlaParamController extends HttpServlet {
         }  
   
   
-  
+        request.setAttribute("error",error);
+        
         RequestDispatcher view = request.getRequestDispatcher(forward);  
   
         view.forward(request, response);  
@@ -91,38 +97,64 @@ public class SlaParamController extends HttpServlet {
   
         SlaParam slaParam = new SlaParam();  
         
-        request.setAttribute("strLink","slaparam");
-  
-        slaParam.setSlaParamName(request.getParameter("slaParamName"));  
-  
-        slaParam.setSlaParamUnit(request.getParameter("slaParamUnit")); 
+        String error = "sucess";
         
-        slaParam.setSlaParamDesc(request.getParameter("slaParamDesc")); 
-          
+        String search = request.getParameter("search");
+        
+        String action = request.getParameter("action");
+        
+        request.setAttribute("strLink","slaparam");
+        
+        if(action.equalsIgnoreCase("search")){
+            List<SlaParam> slaparams = new ArrayList<SlaParam>();  
+            slaparams = dao.getAllSlaParams(search);
+            
+            
+            if(!slaparams.isEmpty()){
+                request.setAttribute("slaParams",slaparams);
+            }else {
+                error = "No SLA Parameter found!";
+            }
+            
+            
+        } else {
   
-        String slaParamId = request.getParameter("slaParamId");  
-  
-        if(slaParamId == null || slaParamId.isEmpty())  
-  
-        {  
-  
-            dao.addSlaParam(slaParam);  
-  
-        }  
-  
-        else  
-  
-        {  
-  
-            slaParam.setSlaParamId(Integer.parseInt(slaParamId));  
-  
-            dao.updateSlaParam(slaParam);  
-  
-        }  
+            slaParam.setSlaParamName(request.getParameter("slaParamName"));  
+
+            slaParam.setSlaParamUnit(request.getParameter("slaParamUnit")); 
+
+            slaParam.setSlaParamDesc(request.getParameter("slaParamDesc")); 
+
+
+            String slaParamId = request.getParameter("slaParamId");  
+
+            if(slaParamId == null || slaParamId.isEmpty())  
+
+            {  
+
+                dao.addSlaParam(slaParam);  
+
+            }  
+
+            else  
+
+            {  
+
+                slaParam.setSlaParamId(Integer.parseInt(slaParamId));  
+
+                dao.updateSlaParam(slaParam);  
+
+            }  
+            
+            request.setAttribute("slaParams", dao.getAllSlaParams("")); 
+        
+        }
+        
+        request.setAttribute("error",error);
   
         RequestDispatcher view = request.getRequestDispatcher(LIST_SLAPARAM);  
   
-        request.setAttribute("slaParams", dao.getAllSlaParams());  
+         
   
         view.forward(request, response);  
   

@@ -122,15 +122,21 @@ public class CustomerDao {
   
   
   
-    public List<Customer> getAllCustomers() {  
+    public List<Customer> getAllCustomers(String search) {  
   
         List<Customer> customers = new ArrayList<Customer>();  
   
         try {  
   
             Statement statement = connection.createStatement();  
-  
-            ResultSet rs = statement.executeQuery("select * from casvid_customers");  
+            
+            String strSql = "select * from casvid_customers";
+            
+            if(!search.isEmpty()){
+                strSql = strSql + " where cust_firstname like'%" +search+"%' or cust_lastname like'%"+search+"%'";
+            }
+            
+            ResultSet rs = statement.executeQuery(strSql);  
   
             while (rs.next()) {  
   

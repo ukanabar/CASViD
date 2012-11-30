@@ -1,4 +1,6 @@
-<%@include file="header.jsp" %>   
+<%@include file="header.jsp" %>  
+
+<script language="javascript" src="./scripts/sla.js"></script>
 <div class="top-bar">
 
 <h1><c:choose>
@@ -33,7 +35,7 @@
            
             <input type="hidden" name="slaType"  
       
-                value="pro" /><input name="customerId" type="hidden" value="<c:out value="${intCustId}" />"/> <select name="appId"><option value="select">select</option><c:forEach items="${Application}" var="app"><option value="<c:out value="${app.applicationId}" />"  <c:if test="${app.applicationId==sla.applicationId}">selected="selected"</c:if>><c:out value="${app.applicationName}" /></option></c:forEach></select></td>
+                value="pro" /><input name="vmId" type="hidden" value="<c:out value="${intVmId}" />"/> <select name="appId"><option value="select">select</option><c:forEach items="${Application}" var="app"><option value="<c:out value="${app.applicationId}" />"  <c:if test="${app.applicationId==sla.applicationId}">selected="selected"</c:if>><c:out value="${app.applicationName}" /></option></c:forEach></select></td>
   </tr>
   <tr>
     <td class="spec">SLA Parameter :</th>

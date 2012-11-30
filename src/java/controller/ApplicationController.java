@@ -5,6 +5,8 @@
 package controller;
 import dao.ApplicationDao;
 import java.io.*;  
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -46,6 +48,9 @@ public class ApplicationController extends HttpServlet {
         request.setAttribute("strLink","app"); 
         
         request.setAttribute("action",action);
+        
+        String error = "sucess";
+         
         if (action.equalsIgnoreCase("delete")){  
   
             int applicationId = Integer.parseInt(request.getParameter("applicationId"));  
@@ -54,7 +59,7 @@ public class ApplicationController extends HttpServlet {
   
             forward = LIST_APPLICATION;  
   
-            request.setAttribute("applications", dao.getAllApplications());     
+            request.setAttribute("applications", dao.getAllApplications(""));     
   
         } else if (action.equalsIgnoreCase("edit")){  
   
@@ -70,7 +75,7 @@ public class ApplicationController extends HttpServlet {
   
             forward = LIST_APPLICATION;  
   
-            request.setAttribute("applications", dao.getAllApplications());  
+            request.setAttribute("applications", dao.getAllApplications(""));  
   
         } else {  
   
@@ -79,7 +84,8 @@ public class ApplicationController extends HttpServlet {
         }  
   
   
-  
+        request.setAttribute("error",error);
+        
         RequestDispatcher view = request.getRequestDispatcher(forward);  
   
         view.forward(request, response);  
@@ -93,6 +99,27 @@ public class ApplicationController extends HttpServlet {
         Application application = new Application();  
         
         request.setAttribute("strLink","app");
+        
+        String error = "sucess";
+        
+        String search = request.getParameter("search");
+        
+        String action = request.getParameter("action");
+        
+            if(action.equalsIgnoreCase("search")){
+                
+                List<Application> applications = new ArrayList<Application>();  
+                applications = dao.getAllApplications(search);
+
+
+                if(!applications.isEmpty()){
+                    request.setAttribute("applications",applications);
+                }else {
+                    error = "No Applications found!";
+                }
+
+
+            } else {
   
         application.setApplicatioName(request.getParameter("appName"));  
   
@@ -118,10 +145,14 @@ public class ApplicationController extends HttpServlet {
             dao.updateApplication(application);  
   
         }  
+        
+            request.setAttribute("applications", dao.getAllApplications(""));  
+        
+        }
   
-        RequestDispatcher view = request.getRequestDispatcher(LIST_APPLICATION);  
-  
-        request.setAttribute("applications", dao.getAllApplications());  
+        request.setAttribute("error",error);
+        
+        RequestDispatcher view = request.getRequestDispatcher(LIST_APPLICATION);       
   
         view.forward(request, response);  
   

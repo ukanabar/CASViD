@@ -60,13 +60,13 @@ public class SlaController extends HttpServlet{
   
         String action = request.getParameter("action"); 
         
-        int intCustId = Integer.parseInt(request.getParameter("customerId"));
-        request.setAttribute("intCustId",intCustId);
+        int intVmId = Integer.parseInt(request.getParameter("vmId"));
+        request.setAttribute("intVmId",intVmId);
         request.setAttribute("strLink","customer");  
         
         request.setAttribute("action",action);
-        request.setAttribute("Application", daoApplication.getAllApplications());
-        request.setAttribute("Slaparam", daoSlaParam.getAllSlaParams());
+        request.setAttribute("Application", daoApplication.getAllApplications(""));
+        request.setAttribute("Slaparam", daoSlaParam.getAllSlaParams(""));
         
         if (action.equalsIgnoreCase("delete")){  
   
@@ -76,7 +76,7 @@ public class SlaController extends HttpServlet{
   
             forward = LIST_SLA;  
   
-            request.setAttribute("slas", dao.getAllSlas(intCustId));     
+            request.setAttribute("slas", dao.getAllSlas(intVmId));     
   
         } else if (action.equalsIgnoreCase("edit")){  
   
@@ -95,7 +95,7 @@ public class SlaController extends HttpServlet{
             
             
             
-            request.setAttribute("slas",dao.getAllSlas(intCustId)); 
+            request.setAttribute("slas",dao.getAllSlas(intVmId)); 
             
   
         } else {  
@@ -119,14 +119,14 @@ public class SlaController extends HttpServlet{
         Sla sla = new Sla();  
         Date expDate = null;
                 
-        int intCustId = Integer.parseInt(request.getParameter("customerId"));
-        request.setAttribute("intCustId",intCustId);
+        int intVmId = Integer.parseInt(request.getParameter("vmId"));
+        request.setAttribute("intVmId",intVmId);
          
         sla.setApplicationId(Integer.parseInt(request.getParameter("appId")));  
         
         sla.setSlaParamId(Integer.parseInt(request.getParameter("slaParamId")));       
         
-        sla.setCustomerId(intCustId);
+        sla.setVmId(intVmId);
         
         sla.setThreatValue(request.getParameter("threatValue"));        
         
@@ -172,7 +172,7 @@ public class SlaController extends HttpServlet{
   
         RequestDispatcher view = request.getRequestDispatcher(LIST_SLA);  
   
-        request.setAttribute("slas", dao.getAllSlas(intCustId));  
+        request.setAttribute("slas", dao.getAllSlas(intVmId));  
   
         view.forward(request, response); 
   

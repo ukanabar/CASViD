@@ -35,7 +35,7 @@
       
                 value="<c:out value="${customer.firstName}" />" /> <input type="hidden" name="customerId"  
       
-                value="<c:out value="${customer.customerId}" />" /></td>
+                value="<c:out value="${customer.customerId}" />" /> <input type="hidden" name="action" value="add/edit" ></td>
      
   </tr>
   <tr>

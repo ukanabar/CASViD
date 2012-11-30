@@ -32,7 +32,7 @@
       
                 type="text" name="paramName"  id"paramName"
       
-                value="<c:out value="${config.configParamName}" />" />   </td>
+                value="<c:out value="${config.configParamName}" />" />  <input type="hidden" name="action" value="add/edit" > </td>
   </tr>
   <tr>
     <td class="spec">Config Parameter Value :</th>

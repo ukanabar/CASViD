@@ -5,15 +5,17 @@
                     <h1>Customers</h1>
                     
 </div>
+<form action="CustomerController" method="post">
 <div class="select-bar">
                     <label>
-                        <input type="text" name="textfield" />
+                        <input type="text" name="search" />
+                        <input type="hidden" name="action" value="search" />
                     </label>
                     <label>
                         <input type="submit" name="Submit" value="Search" class="button"/>
                     </label>
 </div>
-
+</form>
 
    
       
@@ -33,11 +35,16 @@
       
                     <th>Created Date</th>                    
       
-                    <th colspan="4">Action</th>  
+                    <th colspan="3">Action</th>  
       
                 </tr>  
       
-            
+               <c:choose>
+               <c:when test="${error!='sucess'}">
+                   <tr><td colspan="8" align="right" >${error}</td></tr>
+               </c:when>
+               <c:otherwise>     
+               
       
                 <c:forEach items="${customers}" var="customer">  
       
@@ -55,23 +62,19 @@
       
                         <td class="style1"><a href="CustomerController?action=delete&customerId=<c:out value="${customer.customerId}"/>"><img src="./images/hr.gif" width="16" height="16" alt="Delete" />Delete</a></td>  
                         
-                        <td class="style1"><a href="VmController?action=listvm&customerId=<c:out value="${customer.customerId}"/>"><img src="./images/vm.png" width="16" height="16" alt="VMs" />VMs</a></td>  
-                        
-                        <td class="style1"><a href="SlaController?action=listsla&customerId=<c:out value="${customer.customerId}"/>"><img src="./images/sla.jpg" width="16" height="16" alt="Slas" />Sla</a></td>  
-      
-                          
-      
+                        <td class="style1"><a href="VmController?action=listvm&customerId=<c:out value="${customer.customerId}"/>"><img src="./images/vm.png" width="16" height="16" alt="VMs" />VMs</a></td>    
                     </tr>  
       
                 </c:forEach>  
       
-           
-        <tr><td colspan="8" align="right"><div class="select">
+           </c:otherwise>
+               </c:choose>
+        <!--<tr><td colspan="8" align="right"><div class="select">
                         <strong>Other Pages: </strong>
                         <select>
                             <option>1</option>
                         </select>
-                    </div></td></tr>
+                    </div></td></tr>-->
         </table>  
         
                 </div>

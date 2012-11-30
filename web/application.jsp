@@ -30,6 +30,7 @@
     <td class="spec">Application Name :</th>
     <td><input type="hidden" name="applicationId" value="<c:out value="${application.applicationId}" />" />   
         <input type="text" name="appName" id="appName" value="<c:out value="${application.applicationName}" />" />   
+    <input type="hidden" name="action" value="add/edit" >
     </td>
   </tr>
   <tr>

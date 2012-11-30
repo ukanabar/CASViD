@@ -122,15 +122,21 @@ public class ConfigDao {
   
   
   
-    public List<Config> getAllConfigs() {  
+    public List<Config> getAllConfigs(String search) {  
   
         List<Config> configs = new ArrayList<Config>();  
   
         try {  
   
             Statement statement = connection.createStatement();  
+            
+            String strSql = "select * from casvid_config";
+            
+            if(!search.isEmpty()){
+                strSql = strSql + " where config_paramname like'%"+search+"%'";
+            }
   
-            ResultSet rs = statement.executeQuery("select * from casvid_config");  
+            ResultSet rs = statement.executeQuery(strSql);  
   
             while (rs.next()) {  
   
